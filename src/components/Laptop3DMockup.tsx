@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { getAssetUrl } from '../utils/assets';
 
 interface Laptop3DMockupProps {
   className?: string;
@@ -101,7 +102,7 @@ export function Laptop3DMockup({ className = '' }: Laptop3DMockupProps) {
         {/* The Exact Laptop Mockup Image with 100% preserved ChatApp UI */}
         <div className="relative w-full">
           <img
-            src="/laptop_clean.png"
+            src={getAssetUrl('laptop_clean.png')}
             alt="ChatApp 3D Laptop Mockup"
             className="w-full h-auto object-contain filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.5)] pointer-events-none"
             draggable={false}
@@ -111,11 +112,11 @@ export function Laptop3DMockup({ className = '' }: Laptop3DMockupProps) {
           <div
             className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 transition-opacity duration-300"
             style={{
-              WebkitMaskImage: "url('/laptop_clean.png')",
+              WebkitMaskImage: `url('${getAssetUrl('laptop_clean.png')}')`,
               WebkitMaskSize: 'contain',
               WebkitMaskRepeat: 'no-repeat',
               WebkitMaskPosition: 'center',
-              maskImage: "url('/laptop_clean.png')",
+              maskImage: `url('${getAssetUrl('laptop_clean.png')}')`,
               maskSize: 'contain',
               maskRepeat: 'no-repeat',
               maskPosition: 'center',
@@ -132,11 +133,11 @@ export function Laptop3DMockup({ className = '' }: Laptop3DMockupProps) {
           <div
             className="absolute inset-0 pointer-events-none opacity-25 mix-blend-screen"
             style={{
-              WebkitMaskImage: "url('/laptop_clean.png')",
+              WebkitMaskImage: `url('${getAssetUrl('laptop_clean.png')}')`,
               WebkitMaskSize: 'contain',
               WebkitMaskRepeat: 'no-repeat',
               WebkitMaskPosition: 'center',
-              maskImage: "url('/laptop_clean.png')",
+              maskImage: `url('${getAssetUrl('laptop_clean.png')}')`,
               maskSize: 'contain',
               maskRepeat: 'no-repeat',
               maskPosition: 'center',

@@ -1,3 +1,5 @@
+import { getAssetUrl } from '../utils/assets';
+
 export interface SkillCompetency {
   title: string;
   icon: 'cloud' | 'security' | 'scale' | 'optimize' | 'database' | 'code' | 'ai' | 'network';
@@ -38,7 +40,7 @@ export const CERTIFICATIONS_DATA: CertificationItem[] = [
     credentialId: '9BJ9D936',
     regNo: '22BCE10695',
     verifyUrl: 'https://ethnus.com/certverify',
-    image: '/certificates/aws-solutions-architect.png',
+    image: getAssetUrl('certificates/aws-solutions-architect.png'),
     competencies: [
       { title: 'Cloud Architecture', icon: 'cloud' },
       { title: 'Security Best Practices', icon: 'security' },
@@ -61,7 +63,7 @@ export const CERTIFICATIONS_DATA: CertificationItem[] = [
     year: '2026',
     credentialId: 'UC-e8ac73a8-5ac9-46c7-9cf0-17271cdddf35',
     verifyUrl: 'https://www.udemy.com/certificate/UC-e8ac73a8-5ac9-46c7-9cf0-17271cdddf35/',
-    image: '/certificates/nextjs-web-dev.png',
+    image: getAssetUrl('certificates/nextjs-web-dev.png'),
     competencies: [
       { title: 'App Router & RSC', icon: 'code' },
       { title: 'SSR & Edge Rendering', icon: 'scale' },
@@ -84,7 +86,7 @@ export const CERTIFICATIONS_DATA: CertificationItem[] = [
     year: '2024',
     credentialId: 'XSHTSNB3ZFZQ',
     verifyUrl: 'https://coursera.org/verify/XSHTSNB3ZFZQ',
-    image: '/certificates/google-networking.png',
+    image: getAssetUrl('certificates/google-networking.png'),
     competencies: [
       { title: 'TCP/IP & OSI Models', icon: 'network' },
       { title: 'Routing & Subnetting', icon: 'scale' },
@@ -107,7 +109,7 @@ export const CERTIFICATIONS_DATA: CertificationItem[] = [
     year: '2024',
     credentialId: 'UC-a30b8481-2006-4015-a4f2-b527eacbcd5d',
     verifyUrl: 'https://ude.my/UC-a30b8481-2006-4015-a4f2-b527eacbcd5d',
-    image: '/certificates/udemy-sql.png',
+    image: getAssetUrl('certificates/udemy-sql.png'),
     competencies: [
       { title: 'Window Functions & CTEs', icon: 'database' },
       { title: 'Complex Joins & Aggs', icon: 'code' },
@@ -131,7 +133,7 @@ export const CERTIFICATIONS_DATA: CertificationItem[] = [
     credentialId: '34HSDX45',
     regNo: '22BCE10695',
     verifyUrl: 'https://ethnus.com/certverify',
-    image: '/certificates/mern-fullstack.png',
+    image: getAssetUrl('certificates/mern-fullstack.png'),
     competencies: [
       { title: 'React Frontend Architecture', icon: 'code' },
       { title: 'RESTful API Engineering', icon: 'scale' },

@@ -6,6 +6,7 @@ import { ContactPage } from './components/ContactPage';
 import { Navbar } from './components/Navbar';
 import { SourabhLogo } from './components/SourabhLogo';
 import { CursorSpotlight } from './components/CursorSpotlight';
+import { getAssetUrl } from './utils/assets';
 
 // Crisp inline SVGs matching exact editorial design from screenshot
 const InstagramIcon = () => (
@@ -323,7 +324,7 @@ export default function App() {
       <div className="absolute inset-x-0 bottom-0 top-[12.5vh] sm:top-[11vh] z-20 pointer-events-none flex justify-center items-end">
         <div className="relative h-full pointer-events-auto cursor-pointer group flex justify-center items-end">
           <img
-            src="/portrait.png"
+            src={getAssetUrl('portrait.png')}
             onError={(e) => {
               e.currentTarget.src = 'https://lh3.googleusercontent.com/d/1CJ5byO3U_Dg9lpYWkFHU87NlA6k4zd3T';
             }}

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { getAssetUrl } from '../utils/assets';
 
 interface MotionPortraitProps {
   imageSrc: string;
@@ -207,7 +208,7 @@ export const MotionPortrait: React.FC<MotionPortraitProps> = ({
           onLoad={() => setImgLoaded(true)}
           onError={(e) => {
             // Fallback to local copy if remote path fails
-            e.currentTarget.src = '/portrait.png';
+            e.currentTarget.src = getAssetUrl('portrait.png');
           }}
           className={`h-full w-auto max-w-none object-contain object-bottom select-none transition-opacity duration-700 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'

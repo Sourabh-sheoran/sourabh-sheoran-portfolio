@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { X, ExternalLink, CheckCircle2, ShieldCheck, Calendar, Award } from 'lucide-react';
 import type { CertificationItem } from '../data/certificationsData';
+import { getAssetUrl } from '../utils/assets';
 
 interface CertificateModalProps {
   certificate: CertificationItem | null;
@@ -69,7 +70,7 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
           <div className="relative w-full rounded-xl overflow-hidden border border-white/15 bg-black/40 shadow-inner flex items-center justify-center">
             {certificate.image ? (
               <img
-                src={certificate.image}
+                src={getAssetUrl(certificate.image)}
                 alt={certificate.title}
                 className="w-full h-auto max-h-[58vh] object-contain rounded-lg"
               />

@@ -19,6 +19,7 @@ import {
   CERTIFICATIONS_DATA,
   type SkillCompetency,
 } from '../data/certificationsData';
+import { getAssetUrl } from '../utils/assets';
 
 // Brand Logos
 const AwsLogo = ({ className = 'text-amber-400' }: { className?: string }) => (
@@ -389,7 +390,7 @@ export function CertificationsPage({
               >
                 {selectedCert.image ? (
                   <img
-                    src={selectedCert.image}
+                    src={getAssetUrl(selectedCert.image)}
                     alt={selectedCert.title}
                     className="w-full h-auto object-contain max-h-[360px] sm:max-h-[440px] rounded-lg transition-transform duration-500 group-hover:scale-[1.015]"
                   />

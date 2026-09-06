@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getAssetUrl } from '../utils/assets';
 
 interface MediaFeed {
   id: 'instagram' | 'linkedin';
@@ -22,8 +23,8 @@ const FEEDS: MediaFeed[] = [
     badgeColor: '#E1306C',
     glowColor: 'rgba(225, 48, 108, 0.22)',
     accentGradient: 'from-[#833ab4] via-[#fd1d1d] to-[#fcb045]',
-    mp4Src: '/videos/insta.mp4',
-    movSrc: '/videos/insta.mov',
+    mp4Src: getAssetUrl('videos/insta.mp4'),
+    movSrc: getAssetUrl('videos/insta.mov'),
     description: 'Visual stories, creative design & live updates',
   },
   {
@@ -34,8 +35,8 @@ const FEEDS: MediaFeed[] = [
     badgeColor: '#0A66C2',
     glowColor: 'rgba(10, 102, 194, 0.22)',
     accentGradient: 'from-[#0A66C2] via-[#0077B5] to-[#00A0DC]',
-    mp4Src: '/videos/linkdin.mp4',
-    movSrc: '/videos/linkdin.mov',
+    mp4Src: getAssetUrl('videos/linkdin.mp4'),
+    movSrc: getAssetUrl('videos/linkdin.mov'),
     description: 'Professional journey, projects & endorsements',
   },
 ];
@@ -174,8 +175,8 @@ export const IPhoneShowcase: React.FC = () => {
                   preload="auto"
                   className="w-full h-full object-cover object-top"
                 >
-                  <source src="/videos/insta.mp4" type="video/mp4" />
-                  <source src="/videos/insta.mov" type="video/quicktime" />
+                  <source src={getAssetUrl('videos/insta.mp4')} type="video/mp4" />
+                  <source src={getAssetUrl('videos/insta.mov')} type="video/quicktime" />
                 </video>
               </div>
 
@@ -196,8 +197,8 @@ export const IPhoneShowcase: React.FC = () => {
                   preload="auto"
                   className="w-full h-full object-cover object-top"
                 >
-                  <source src="/videos/linkdin.mp4" type="video/mp4" />
-                  <source src="/videos/linkdin.mov" type="video/quicktime" />
+                  <source src={getAssetUrl('videos/linkdin.mp4')} type="video/mp4" />
+                  <source src={getAssetUrl('videos/linkdin.mov')} type="video/quicktime" />
                 </video>
               </div>
 
