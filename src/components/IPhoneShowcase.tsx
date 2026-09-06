@@ -44,10 +44,34 @@ const FEEDS: MediaFeed[] = [
 export const IPhoneShowcase: React.FC = () => {
   const [feedIndex, setFeedIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const phoneContainerRef = useRef<HTMLDivElement | null>(null);
   const instaVideoRef = useRef<HTMLVideoElement | null>(null);
   const linkedinVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const currentFeed = FEEDS[feedIndex];
+
+  // Helper to ensure video is configured with muted DOM property and started
+  const playVideoSafe = (video: HTMLVideoElement | null) => {
+    if (!video) return;
+    try {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      (video as any).webkitPlaysInline = true;
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => setIsPaused(false))
+          .catch(() => {
+            // Autoplay might be deferred until user interaction
+            setIsPaused(true);
+          });
+      }
+    } catch {
+      setIsPaused(true);
+    }
+  };
 
   // Continuous auto-shuffle timer without any external force (every 6 seconds)
   useEffect(() => {
@@ -68,23 +92,61 @@ export const IPhoneShowcase: React.FC = () => {
     return () => clearInterval(progressTimer);
   }, []);
 
-  // Ensure videos are always playing smoothly
+  // Ensure active video is playing whenever feed changes
   useEffect(() => {
-    const playSafe = async (video: HTMLVideoElement | null) => {
-      if (video) {
-        try {
-          if (video.paused) {
-            await video.play();
+    const activeVideo = feedIndex === 0 ? instaVideoRef.current : linkedinVideoRef.current;
+    if (activeVideo) {
+      playVideoSafe(activeVideo);
+    }
+  }, [feedIndex]);
+
+  // IntersectionObserver: when phone enters viewport on scroll, trigger playback
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playVideoSafe(instaVideoRef.current);
+            playVideoSafe(linkedinVideoRef.current);
           }
-        } catch {
-          // Autoplay handled by browser policies with muted
-        }
-      }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (phoneContainerRef.current) {
+      observer.observe(phoneContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Wake up video playback on any page interaction (scroll, click, touch)
+  useEffect(() => {
+    const wakeUpVideos = () => {
+      const activeVideo = feedIndex === 0 ? instaVideoRef.current : linkedinVideoRef.current;
+      playVideoSafe(activeVideo);
     };
 
-    playSafe(instaVideoRef.current);
-    playSafe(linkedinVideoRef.current);
-  }, []);
+    window.addEventListener('pointerdown', wakeUpVideos, { passive: true });
+    window.addEventListener('touchstart', wakeUpVideos, { passive: true });
+    window.addEventListener('scroll', wakeUpVideos, { passive: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', wakeUpVideos);
+      window.removeEventListener('touchstart', wakeUpVideos);
+      window.removeEventListener('scroll', wakeUpVideos);
+    };
+  }, [feedIndex]);
+
+  const handlePhoneClick = () => {
+    const activeVideo = feedIndex === 0 ? instaVideoRef.current : linkedinVideoRef.current;
+    if (activeVideo && activeVideo.paused) {
+      playVideoSafe(activeVideo);
+      return;
+    }
+    window.open(currentFeed.url, '_blank');
+  };
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center py-4 select-none">
@@ -124,7 +186,11 @@ export const IPhoneShowcase: React.FC = () => {
       </div>
 
       {/* Main iPhone Body Container */}
-      <div className="relative group cursor-pointer" onClick={() => window.open(currentFeed.url, '_blank')}>
+      <div
+        ref={phoneContainerRef}
+        className="relative group cursor-pointer"
+        onClick={handlePhoneClick}
+      >
         {/* Physical External Buttons */}
         {/* Left: Action button */}
         <div className="absolute -left-[3px] top-[115px] w-[3px] h-[26px] bg-[#3a3a42] rounded-l-sm" />
@@ -167,12 +233,32 @@ export const IPhoneShowcase: React.FC = () => {
                 }`}
               >
                 <video
-                  ref={instaVideoRef}
+                  ref={(el) => {
+                    instaVideoRef.current = el;
+                    if (el) {
+                      el.muted = true;
+                      el.defaultMuted = true;
+                      el.playsInline = true;
+                    }
+                  }}
+                  src={getAssetUrl('videos/insta.mp4')}
                   autoPlay
                   loop
                   muted
                   playsInline
                   preload="auto"
+                  onCanPlay={(e) => playVideoSafe(e.currentTarget)}
+                  onLoadedData={(e) => playVideoSafe(e.currentTarget)}
+                  onPlay={() => {
+                    if (feedIndex === 0) setIsPaused(false);
+                  }}
+                  onPause={() => {
+                    if (feedIndex === 0) setIsPaused(true);
+                  }}
+                  onEnded={(e) => {
+                    e.currentTarget.currentTime = 0;
+                    playVideoSafe(e.currentTarget);
+                  }}
                   className="w-full h-full object-cover object-top"
                 >
                   <source src={getAssetUrl('videos/insta.mp4')} type="video/mp4" />
@@ -189,12 +275,32 @@ export const IPhoneShowcase: React.FC = () => {
                 }`}
               >
                 <video
-                  ref={linkedinVideoRef}
+                  ref={(el) => {
+                    linkedinVideoRef.current = el;
+                    if (el) {
+                      el.muted = true;
+                      el.defaultMuted = true;
+                      el.playsInline = true;
+                    }
+                  }}
+                  src={getAssetUrl('videos/linkdin.mp4')}
                   autoPlay
                   loop
                   muted
                   playsInline
                   preload="auto"
+                  onCanPlay={(e) => playVideoSafe(e.currentTarget)}
+                  onLoadedData={(e) => playVideoSafe(e.currentTarget)}
+                  onPlay={() => {
+                    if (feedIndex === 1) setIsPaused(false);
+                  }}
+                  onPause={() => {
+                    if (feedIndex === 1) setIsPaused(true);
+                  }}
+                  onEnded={(e) => {
+                    e.currentTarget.currentTime = 0;
+                    playVideoSafe(e.currentTarget);
+                  }}
                   className="w-full h-full object-cover object-top"
                 >
                   <source src={getAssetUrl('videos/linkdin.mp4')} type="video/mp4" />
@@ -202,13 +308,36 @@ export const IPhoneShowcase: React.FC = () => {
                 </video>
               </div>
 
+              {/* Fallback Tap to Play Indicator if autoplay blocked by strict browser policy */}
+              {isPaused && (
+                <div
+                  className="absolute inset-0 z-25 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-all cursor-pointer pointer-events-auto"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const activeVideo = feedIndex === 0 ? instaVideoRef.current : linkedinVideoRef.current;
+                    playVideoSafe(activeVideo);
+                  }}
+                >
+                  <div className="px-4 py-2 rounded-full bg-white/20 border border-white/40 text-white text-xs font-semibold flex items-center gap-2 shadow-2xl backdrop-blur-md animate-pulse">
+                    <span className="text-sm">▶</span>
+                    <span>Tap to Play Live Demo</span>
+                  </div>
+                </div>
+              )}
+
               {/* Screen Glass Glare / Specular Reflection Gradient */}
               <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.03] via-transparent to-white/[0.08] pointer-events-none z-20" />
             </div>
 
             {/* In-Phone Bottom Interactive Action Banner (Advertisement style) */}
-            <div className="relative z-30 mt-auto pb-4 px-4 pointer-events-none">
-              <div className="p-3 rounded-2xl bg-black/60 backdrop-blur-md border border-white/15 shadow-xl flex items-center justify-between transition-all duration-500">
+            <div className="relative z-30 mt-auto pb-4 px-4 pointer-events-auto">
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(currentFeed.url, '_blank');
+                }}
+                className="p-3 rounded-2xl bg-black/60 backdrop-blur-md border border-white/15 shadow-xl flex items-center justify-between transition-all duration-500 hover:border-white/40 hover:bg-black/80 cursor-pointer"
+              >
                 <div className="flex items-center gap-2.5">
                   <div
                     className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-md"

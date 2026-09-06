@@ -242,9 +242,9 @@ export default function App() {
   }
 
   return (
-    <main className="relative h-[100dvh] w-full overflow-hidden bg-studio-editorial text-[#efeee9] select-none font-hn page-entrance">
+    <main className="relative min-h-[100dvh] h-auto lg:h-[100dvh] w-full overflow-hidden bg-studio-editorial text-[#F5F1EA] select-none font-hn page-entrance flex flex-col justify-between">
       <CursorSpotlight />
-      {/* 1. Shared Header matching default About page */}
+      {/* 1. Shared Header matching default About page in Navbar Text #D8D4DA */}
       <Navbar
         activeTab={activeTab}
         onNavigate={handleNavClick}
@@ -252,113 +252,180 @@ export default function App() {
         onOpenDrawer={() => setDrawerOpen(true)}
       />
 
-      {/* 2. Top-Left Tagline: FULL-STACK DEVELOPER (z-25) */}
-      <div
-        className="absolute left-6 sm:left-12 lg:left-16 top-[20vh] sm:top-[22vh] z-25 anim-fade-up pointer-events-none"
-        style={{ animationDelay: '200ms' }}
-      >
-        <span className="text-[11px] sm:text-xs uppercase tracking-[0.22em] text-white/60 font-medium">
-          FULL-STACK DEVELOPER
-        </span>
-      </div>
-
-      {/* 3. Giant Typography Marquee: Sourabh Sheoran (z-10, motion right-to-left behind portrait) */}
-      <div
-        className="absolute inset-x-0 top-[19vh] sm:top-[21vh] z-10 overflow-hidden pointer-events-none select-none anim-fade-up"
-        style={{ animationDelay: '300ms' }}
-      >
-        <div className="marquee-track flex w-max whitespace-nowrap font-hn font-bold tracking-tight text-white/95 text-[15vh] sm:text-[24vh] leading-none">
-          {/* First half of track */}
-          <span className="pr-[5vw] inline-block">
-            Sourabh&mdash;Sheoran{'\u00A0'}
-          </span>
-          <span className="pr-[5vw] inline-block">
-            Sourabh&mdash;Sheoran{'\u00A0'}
-          </span>
-          {/* Second half for seamless infinite loop */}
-          <span className="pr-[5vw] inline-block">
-            Sourabh&mdash;Sheoran{'\u00A0'}
-          </span>
-          <span className="pr-[5vw] inline-block">
-            Sourabh&mdash;Sheoran{'\u00A0'}
+      {/* Main Hero Visual Area */}
+      <div className="relative flex-1 w-full min-h-[72vh] lg:min-h-0 flex items-center">
+        {/* 2. Top-Left Tagline: FULL-STACK DEVELOPER in Normal Text #C9C5CC */}
+        <div
+          className="absolute left-6 sm:left-12 lg:left-16 top-[15vh] sm:top-[17vh] z-25 anim-fade-up pointer-events-none"
+          style={{ animationDelay: '200ms' }}
+        >
+          <span className="text-[11px] sm:text-xs uppercase tracking-[0.24em] text-[#C9C5CC] font-mono font-medium">
+            FULL-STACK DEVELOPER
           </span>
         </div>
-      </div>
 
-      {/* 4. Left Hero Column: Accent Line, Headline, Intro, Button (z-30) */}
-      <div
-        className="absolute left-6 sm:left-12 lg:left-16 top-[44vh] sm:top-[46vh] z-30 max-w-[280px] sm:max-w-[340px] anim-fade-up pointer-events-auto"
-        style={{ animationDelay: '400ms' }}
-      >
-        {/* Horizontal Accent Line */}
-        <div className="w-10 h-[1.5px] bg-white/50 mb-5 anim-line" />
-
-        {/* Hero Headline */}
-        <h1 className="text-xl sm:text-2xl lg:text-[27px] font-medium text-white tracking-tight leading-snug">
-          Turning ideas into<br />real products.
-        </h1>
-
-        {/* Intro Paragraph */}
-        <p className="mt-4 text-xs sm:text-[13px] text-white/70 font-normal leading-relaxed">
-          I'm Sourabh Sheoran, a Full-Stack Developer who loves building modern web
-          applications, exploring data and creating solutions that make an impact.
-        </p>
-
-        {/* Call to Action Button */}
-        <div className="mt-5 sm:mt-6 flex items-center gap-3">
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveTab('projects');
-            }}
-            className="group inline-flex items-center gap-3 px-4 py-2 sm:px-5 sm:py-2.5 rounded-[2px] border border-white/40 text-xs sm:text-[13px] text-white hover:border-white hover:bg-white/10 active:scale-[0.98] transition-all duration-200"
-          >
-            <span>View My Work</span>
-            <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
-          </a>
-        </div>
-      </div>
-
-      {/* 5. Center Cutout Portrait: Exactly positioned as in photo, with subtle hover lift ONLY when cursor is on it */}
-      <div className="absolute inset-x-0 bottom-0 top-[12.5vh] sm:top-[11vh] z-20 pointer-events-none flex justify-center items-end">
-        <div className="relative h-full pointer-events-auto cursor-pointer group flex justify-center items-end">
-          <img
-            src={getAssetUrl('portrait.png')}
-            onError={(e) => {
-              e.currentTarget.src = 'https://lh3.googleusercontent.com/d/1CJ5byO3U_Dg9lpYWkFHU87NlA6k4zd3T';
-            }}
-            alt="Sourabh Sheoran"
-            className="h-full w-auto max-w-none object-contain object-bottom select-none transition-all duration-500 ease-out group-hover:scale-[1.018] group-hover:-translate-y-1.5 group-hover:brightness-105"
-            style={{
-              filter: 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.28))',
-            }}
-            draggable={false}
-          />
-        </div>
-      </div>
-
-      {/* 6. Subtle Full-Width Horizontal Rule above Footer (z-25) */}
-      <div className="absolute inset-x-6 sm:inset-x-12 lg:inset-x-16 bottom-16 sm:bottom-20 z-25 h-[1px] bg-white/20 anim-line" />
-
-      {/* 7. Footer (z-30) */}
-      <footer className="absolute inset-x-0 bottom-0 z-30 flex items-end justify-between px-6 pb-5 sm:px-12 sm:pb-8 lg:px-16 text-[10px] sm:text-xs font-medium tracking-[0.16em] uppercase text-white/55 pointer-events-auto anim-fade-up">
-        {/* Footer Left: Titles */}
-        <div className="flex flex-col leading-relaxed">
-          <span>FULL-STACK DEVELOPER</span>
-          <span>PYTHON DEVELOPER</span>
-          <span>WEB DEVELOPER</span>
+        {/* 3. Big Background Text: Sourabh Sheoran (#B8B2BB, 20-30% opacity) behind portrait */}
+        <div
+          className="absolute inset-x-0 top-[13vh] sm:top-[15vh] z-10 overflow-hidden pointer-events-none select-none flex justify-center items-center anim-fade-up"
+          style={{ animationDelay: '300ms' }}
+        >
+          <h2 className="font-hn font-bold tracking-tight text-[#B8B2BB] opacity-[0.24] text-[13vh] sm:text-[21vh] leading-none whitespace-nowrap">
+            Sourabh Sheoran
+          </h2>
         </div>
 
-        {/* Footer Right: Homage */}
-        <div className="flex items-center gap-3 text-right">
-          <span className="hidden sm:inline-block w-8 h-[1px] bg-white/30" />
-          <div className="flex flex-col leading-relaxed text-right">
-            <span>A HOMAGE TO</span>
-            <span>SOURABH SHEORAN</span>
+        {/* 4. Left Hero Column: Headline, Intro Paragraph, Action Buttons (z-30) */}
+        <div
+          className="absolute left-6 sm:left-12 lg:left-16 top-[33vh] sm:top-[35vh] lg:top-[36vh] z-30 max-w-[320px] sm:max-w-[420px] anim-fade-up pointer-events-auto"
+          style={{ animationDelay: '400ms' }}
+        >
+          {/* Hero Headline in Main Heading #F5F1EA & Accent / Highlight #C6A15B */}
+          <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-medium text-[#F5F1EA] tracking-tight leading-[1.14]">
+            Turning ideas into<br />
+            <span className="text-[#C6A15B]">real products.</span>
+          </h1>
+
+          {/* Intro Paragraph in Normal Text #C9C5CC */}
+          <p className="mt-4 sm:mt-5 text-xs sm:text-[13.5px] text-[#C9C5CC] font-normal leading-relaxed max-w-[360px]">
+            I'm Sourabh Sheoran, a Full-Stack Developer who loves building modern web
+            applications, exploring data and creating solutions that make an impact.
+          </p>
+
+          {/* Action Buttons: View My Work (#C6A15B) & Get In Touch (Bordered #F5F1EA) */}
+          <div className="mt-6 sm:mt-8 flex items-center gap-3.5">
+            <a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('projects');
+              }}
+              className="group inline-flex items-center gap-2.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-[#C6A15B] hover:bg-[#D6B66A] text-[#242126] font-semibold text-xs sm:text-sm tracking-wide shadow-[0_4px_20px_rgba(198,161,91,0.25)] hover:shadow-[0_6px_25px_rgba(214,182,106,0.35)] active:scale-[0.98] transition-all duration-200"
+            >
+              <span>View My Work</span>
+              <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setContactOpen(true)}
+              className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg border border-[#C9C5CC]/30 hover:border-[#F5F1EA] bg-white/[0.02] hover:bg-white/[0.06] text-[#F5F1EA] font-medium text-xs sm:text-sm tracking-wide active:scale-[0.98] transition-all duration-200"
+            >
+              Get In Touch
+            </button>
           </div>
         </div>
-      </footer>
+
+        {/* 5. Center Cutout Portrait: Exactly positioned as in photo */}
+        <div className="absolute inset-x-0 bottom-0 top-[6vh] sm:top-[5vh] z-20 pointer-events-none flex justify-center items-end">
+          <div className="relative h-full pointer-events-auto cursor-pointer group flex justify-center items-end">
+            <img
+              src={getAssetUrl('portrait.png')}
+              onError={(e) => {
+                e.currentTarget.src = 'https://lh3.googleusercontent.com/d/1CJ5byO3U_Dg9lpYWkFHU87NlA6k4zd3T';
+              }}
+              alt="Sourabh Sheoran"
+              className="h-full w-auto max-w-none object-contain object-bottom select-none transition-all duration-500 ease-out group-hover:scale-[1.015] group-hover:-translate-y-1 group-hover:brightness-105"
+              style={{
+                filter: 'drop-shadow(0 15px 35px rgba(0, 0, 0, 0.35))',
+              }}
+              draggable={false}
+            />
+          </div>
+        </div>
+
+        {/* 6. Right Editorial Accents matching Image 2 */}
+        <div className="hidden lg:flex flex-col items-end absolute right-12 sm:right-16 top-[42vh] z-25 pointer-events-none select-none">
+          {/* Vertical Accent Line in #C6A15B */}
+          <div className="w-[1.5px] h-20 bg-[#C6A15B] opacity-80 mb-6 mr-3" />
+          {/* Crescent Glow Ornament */}
+          <div className="w-20 h-20 rounded-full border-r-[2.5px] border-white/20 transform rotate-12 blur-[0.4px] mb-8 mr-1" />
+          {/* Homage Title with gold tick line */}
+          <div className="flex items-center gap-3 text-right">
+            <span className="w-6 h-[1.5px] bg-[#C6A15B]" />
+            <div className="flex flex-col text-[10px] font-mono tracking-[0.2em] uppercase text-[#C9C5CC]">
+              <span>A HOMAGE TO</span>
+              <span className="text-[#F5F1EA] font-semibold">SOURABH SHEORAN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 7. Bottom Color Palette Swatch Bar as specified in Image 1 and Image 2 */}
+      <div className="relative z-30 w-full bg-[#242126] border-t border-white/[0.08] px-4 py-3 sm:py-3.5 select-none shrink-0 anim-fade-up">
+        <div className="max-w-7xl mx-auto flex items-center justify-between overflow-x-auto gap-4 sm:gap-6 py-1 scrollbar-none">
+          {/* 1. Background */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#6A656E] border border-white/20 shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Background</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#6A656E</span>
+            </div>
+          </div>
+
+          {/* 2. Main Heading */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#F5F1EA] border border-black/20 shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Main Heading</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#F5F1EA</span>
+            </div>
+          </div>
+
+          {/* 3. Normal Text */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#C9C5CC] shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Normal Text</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#C9C5CC</span>
+            </div>
+          </div>
+
+          {/* 4. Accent / Highlight */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#C6A15B] shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Accent / Highlight</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#C6A15B</span>
+            </div>
+          </div>
+
+          {/* 5. Button Hover */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#D6B66A] shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Button Hover</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#D6B66A</span>
+            </div>
+          </div>
+
+          {/* 6. Big Background Text */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#B8B2BB] opacity-80 shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Big Background Text</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#B8B2BB (20–30%)</span>
+            </div>
+          </div>
+
+          {/* 7. Button Text / Dark */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#242126] border border-white/20 shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Button Text / Dark</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#242126</span>
+            </div>
+          </div>
+
+          {/* 8. Navbar Text */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#D8D4DA] shadow-sm" />
+            <div className="flex flex-col">
+              <span className="text-[10px] sm:text-[11px] text-[#C9C5CC] font-medium leading-tight">Navbar Text</span>
+              <span className="text-[9px] sm:text-[10px] text-[#D8D4DA]/60 font-mono">#D8D4DA</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* 8. Dedicated Contact Page Modal */}
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
