@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181920"/>
+      <stop offset="100%" stop-color="#090a0d"/>
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="#71717a" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="silverPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="45%" stop-color="#F4F4F5"/>
+      <stop offset="100%" stop-color="#A1A1AA"/>
+    </linearGradient>
+    <linearGradient id="silverSecondary" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#E4E4E7"/>
+      <stop offset="60%" stop-color="#A1A1AA"/>
+      <stop offset="100%" stop-color="#71717A"/>
+    </linearGradient>
+    <linearGradient id="accentCore" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+    <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Squircle Base Frame -->
+  <rect x="3" y="3" width="58" height="58" rx="16" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="1.5"/>
+  <rect x="4" y="4" width="56" height="56" rx="15" fill="url(#innerGlow)"/>
+
+  <!-- Architectural 'SS' Editorial Monogram -->
+  <g transform="translate(0, 0)">
+    <!-- Primary 'S' (Sourabh) - Bold Architectural Contour -->
+    <path
+      d="M41 20.5H26C22.686 20.5 20 23.186 20 26.5C20 29.814 22.686 32.5 26 32.5H38C41.314 32.5 44 35.186 44 38.5C44 41.814 41.314 44.5 38 44.5H23"
+      stroke="url(#silverPrimary)"
+      stroke-width="4.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Secondary Echo 'S' (Sheoran) - Interlocking Shadow Accent -->
+    <path
+      d="M44 26.5C44 23.186 41.314 20.5 38 20.5M26 44.5C22.686 44.5 20 41.814 20 38.5"
+      stroke="url(#silverSecondary)"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      opacity="0.7"
+    />
+
+    <!-- Central Precision Diamond Core Accent -->
+    <rect
+      x="30"
+      y="30"
+      width="4"
+      height="4"
+      transform="rotate(45 32 32)"
+      fill="url(#accentCore)"
+    />
+
+    <!-- Signature Micro Dots -->
+    <circle cx="43.5" cy="20.5" r="1.5" fill="#FFFFFF"/>
+    <circle cx="20.5" cy="44.5" r="1.5" fill="#38bdf8"/>
+  </g>
+</svg>

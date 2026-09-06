@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    font-family: 'Helvetica Neue ME', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #efeee9;
+    background-color: #7f7e83;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Studio lighting background vignette matching exact editorial screenshot */
+.bg-studio-editorial {
+  background: radial-gradient(circle at 50% 38%, #939297 0%, #858489 50%, #76757a 100%);
+}
+
+/* Darker studio slate vignette for Projects and Certifications pages:
+   Tailored studio background slightly darker than About page
+   so pure white typography, 3D showcases, and glass cards pop with optimal contrast */
+.bg-studio-dark {
+  background: radial-gradient(circle at 50% 35%, #42464e 0%, #34373e 45%, #24272c 100%);
+  background-attachment: fixed;
+}
+
+/* Keyframes */
+@keyframes progressBar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(3vh) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineScale {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Animation utility classes */
+.anim-fade-in {
+  animation: fadeIn 1s ease-out both;
+}
+
+.anim-rise-in {
+  animation: riseIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-line {
+  animation: lineScale 1s cubic-bezier(0.76, 0, 0.24, 1) both;
+  transform-origin: left;
+}
+
+/* Marquee keyframes & animation (scrolling right-to-left) */
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+
+/* Floating levitation animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+}
+
+.anim-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.anim-float-delayed {
+  animation: floatSlow 7s ease-in-out infinite 1.5s;
+}
+
+/* Glassmorphic card styling */
+.glass-card {
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.065);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-in,
+  .anim-rise-in,
+  .anim-fade-up,
+  .anim-line,
+  .anim-float,
+  .anim-float-delayed {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
