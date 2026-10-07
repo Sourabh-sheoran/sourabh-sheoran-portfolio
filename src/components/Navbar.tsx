@@ -73,6 +73,7 @@ const GithubIcon = () => (
 export const NAV_LINKS = [
   { name: 'About', href: '#about', id: 'about' },
   { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'Experience', href: '#experience', id: 'experience' },
   { name: 'Certifications', href: '#certifications', id: 'certifications' },
   { name: 'Contact', href: '#contact', id: 'contact' },
 ];

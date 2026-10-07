@@ -88,14 +88,16 @@ const CompetencyIcon = ({ icon }: { icon: SkillCompetency['icon'] }) => {
 interface CertificationsPageProps {
   onNavigateHome?: () => void;
   onNavigateProjects?: () => void;
+  onNavigateExperience?: () => void;
   onNavigateContact?: () => void;
-  onNavigate?: (page: 'about' | 'projects' | 'certifications' | 'contact') => void;
+  onNavigate?: (page: 'about' | 'projects' | 'experience' | 'certifications' | 'contact') => void;
   onOpenContact?: () => void;
 }
 
 export function CertificationsPage({
   onNavigateHome,
   onNavigateProjects,
+  onNavigateExperience,
   onNavigateContact,
   onNavigate,
   onOpenContact,
@@ -168,6 +170,7 @@ export function CertificationsPage({
         onNavigate={(tabId) => {
           if (tabId === 'about' && onNavigateHome) onNavigateHome();
           else if (tabId === 'projects' && onNavigateProjects) onNavigateProjects();
+          else if (tabId === 'experience' && onNavigateExperience) onNavigateExperience();
           else if (tabId === 'contact' && onNavigateContact) onNavigateContact();
           else if (onNavigate) onNavigate(tabId as any);
         }}

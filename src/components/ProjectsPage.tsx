@@ -90,6 +90,7 @@ const MailIcon = () => (
 
 interface ProjectsPageProps {
   onNavigateHome: () => void;
+  onNavigateExperience?: () => void;
   onNavigateCertifications?: () => void;
   onNavigateContact?: () => void;
   onOpenContact: () => void;
@@ -97,6 +98,7 @@ interface ProjectsPageProps {
 
 export function ProjectsPage({
   onNavigateHome,
+  onNavigateExperience,
   onNavigateCertifications,
   onNavigateContact,
   onOpenContact,
@@ -173,7 +175,9 @@ export function ProjectsPage({
         activeTab="projects"
         onNavigate={(tabId) => {
           if (tabId === 'about') onNavigateHome();
-          else if (tabId === 'certifications' && onNavigateCertifications) {
+          else if (tabId === 'experience' && onNavigateExperience) {
+            onNavigateExperience();
+          } else if (tabId === 'certifications' && onNavigateCertifications) {
             onNavigateCertifications();
           } else if (tabId === 'contact' && onNavigateContact) {
             onNavigateContact();
@@ -220,6 +224,7 @@ export function ProjectsPage({
               {[
                 { name: 'About', href: '#about', id: 'about' },
                 { name: 'Projects', href: '#projects', id: 'projects' },
+                { name: 'Experience', href: '#experience', id: 'experience' },
                 { name: 'Certifications', href: '#certifications', id: 'certifications' },
                 { name: 'Contact', href: '#contact', id: 'contact' },
               ].map((link) => (
@@ -231,6 +236,12 @@ export function ProjectsPage({
                     if (link.id === 'about') {
                       e.preventDefault();
                       onNavigateHome();
+                    } else if (link.id === 'experience' && onNavigateExperience) {
+                      e.preventDefault();
+                      onNavigateExperience();
+                    } else if (link.id === 'certifications' && onNavigateCertifications) {
+                      e.preventDefault();
+                      onNavigateCertifications();
                     } else if (link.id === 'contact') {
                       e.preventDefault();
                       onOpenContact();

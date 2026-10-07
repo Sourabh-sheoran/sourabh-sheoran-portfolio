@@ -67,14 +67,16 @@ const GithubIcon = ({ size = 20 }: { size?: number }) => (
 interface ContactPageProps {
   onNavigateHome?: () => void;
   onNavigateProjects?: () => void;
+  onNavigateExperience?: () => void;
   onNavigateCertifications?: () => void;
-  onNavigate?: (page: 'about' | 'projects' | 'certifications' | 'contact') => void;
+  onNavigate?: (page: 'about' | 'projects' | 'experience' | 'certifications' | 'contact') => void;
   onOpenContact?: () => void;
 }
 
 export function ContactPage({
   onNavigateHome,
   onNavigateProjects,
+  onNavigateExperience,
   onNavigateCertifications,
   onNavigate,
   onOpenContact,
@@ -122,6 +124,7 @@ export function ContactPage({
         onNavigate={(tabId) => {
           if (tabId === 'about' && onNavigateHome) onNavigateHome();
           else if (tabId === 'projects' && onNavigateProjects) onNavigateProjects();
+          else if (tabId === 'experience' && onNavigateExperience) onNavigateExperience();
           else if (tabId === 'certifications' && onNavigateCertifications) onNavigateCertifications();
           else if (onNavigate) onNavigate(tabId as any);
         }}

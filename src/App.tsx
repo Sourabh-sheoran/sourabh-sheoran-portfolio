@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ContactModal } from './components/ContactModal';
 import { ProjectsPage } from './components/ProjectsPage';
+import { ExperiencePage } from './components/ExperiencePage';
 import { CertificationsPage } from './components/CertificationsPage';
 import { ContactPage } from './components/ContactPage';
 import { Navbar } from './components/Navbar';
@@ -82,6 +83,7 @@ const ArrowRightIcon = ({ className = '' }: { className?: string }) => (
 const NAV_LINKS = [
   { name: 'About', href: '#about', id: 'about' },
   { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'Experience', href: '#experience', id: 'experience' },
   { name: 'Certifications', href: '#certifications', id: 'certifications' },
   { name: 'Contact', href: '#contact', id: 'contact' },
 ];
@@ -122,6 +124,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(() => {
     if (typeof window !== 'undefined') {
       if (window.location.hash === '#projects') return 'projects';
+      if (window.location.hash === '#experience') return 'experience';
       if (window.location.hash === '#certifications') return 'certifications';
       if (window.location.hash === '#contact') return 'contact';
     }
@@ -133,6 +136,8 @@ export default function App() {
     const handleHash = () => {
       if (window.location.hash === '#projects') {
         setActiveTab('projects');
+      } else if (window.location.hash === '#experience') {
+        setActiveTab('experience');
       } else if (window.location.hash === '#certifications') {
         setActiveTab('certifications');
       } else if (window.location.hash === '#contact') {
@@ -173,6 +178,40 @@ export default function App() {
             setActiveTab('about');
             window.location.hash = 'about';
           }}
+          onNavigateExperience={() => {
+            setActiveTab('experience');
+            window.location.hash = 'experience';
+          }}
+          onNavigateCertifications={() => {
+            setActiveTab('certifications');
+            window.location.hash = 'certifications';
+          }}
+          onNavigateContact={() => {
+            setActiveTab('contact');
+            window.location.hash = 'contact';
+          }}
+          onOpenContact={() => setContactOpen(true)}
+        />
+        <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+        <ScrollToTopButton />
+      </div>
+    );
+  }
+
+  // If user navigated to the Experience Page
+  if (activeTab === 'experience') {
+    return (
+      <div key="experience" className="page-entrance min-h-screen">
+        <CursorSpotlight />
+        <ExperiencePage
+          onNavigateHome={() => {
+            setActiveTab('about');
+            window.location.hash = 'about';
+          }}
+          onNavigateProjects={() => {
+            setActiveTab('projects');
+            window.location.hash = 'projects';
+          }}
           onNavigateCertifications={() => {
             setActiveTab('certifications');
             window.location.hash = 'certifications';
@@ -203,6 +242,10 @@ export default function App() {
             setActiveTab('projects');
             window.location.hash = 'projects';
           }}
+          onNavigateExperience={() => {
+            setActiveTab('experience');
+            window.location.hash = 'experience';
+          }}
           onNavigateContact={() => {
             setActiveTab('contact');
             window.location.hash = 'contact';
@@ -228,6 +271,10 @@ export default function App() {
           onNavigateProjects={() => {
             setActiveTab('projects');
             window.location.hash = 'projects';
+          }}
+          onNavigateExperience={() => {
+            setActiveTab('experience');
+            window.location.hash = 'experience';
           }}
           onNavigateCertifications={() => {
             setActiveTab('certifications');
@@ -301,22 +348,34 @@ export default function App() {
 
         {/* Intro Paragraph in Normal Text #C9C5CC */}
         <p className="mt-4 text-xs sm:text-[13px] text-[#C9C5CC] font-normal leading-relaxed">
-          I'm Sourabh Sheoran, a Full-Stack Developer who loves building modern web
-          applications, exploring data and creating solutions that make an impact.
+          Full-Stack Developer currently interning at{' '}
+          <span className="text-[#C6A15B] font-medium">Ariedge.ai</span> building{' '}
+          <span className="text-white font-medium">BallotNow</span>. Experienced in
+          Python, TypeScript, and the MERN stack.
         </p>
 
-        {/* Call to Action Button in #C6A15B with Button Text / Dark #242126 */}
-        <div className="mt-5 sm:mt-6 flex items-center gap-3">
+        {/* Call to Action Buttons */}
+        <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2.5">
+          <a
+            href="#experience"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('experience');
+            }}
+            className="group inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-[3px] border border-[#C6A15B] bg-[#C6A15B] hover:bg-[#D6B66A] text-[#242126] font-semibold text-xs sm:text-[12.5px] shadow-[0_4px_16px_rgba(198,161,91,0.22)] hover:shadow-[0_6px_20px_rgba(214,182,106,0.32)] active:scale-[0.98] transition-all duration-200"
+          >
+            <span>Experience</span>
+            <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
+          </a>
           <a
             href="#projects"
             onClick={(e) => {
               e.preventDefault();
-              setActiveTab('projects');
+              handleNavClick('projects');
             }}
-            className="group inline-flex items-center gap-3 px-4 py-2 sm:px-5 sm:py-2.5 rounded-[3px] border border-[#C6A15B] bg-[#C6A15B] hover:bg-[#D6B66A] text-[#242126] font-semibold text-xs sm:text-[13px] shadow-[0_4px_16px_rgba(198,161,91,0.22)] hover:shadow-[0_6px_20px_rgba(214,182,106,0.32)] active:scale-[0.98] transition-all duration-200"
+            className="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-[3px] border border-white/20 hover:border-white/40 bg-white/[0.04] hover:bg-white/[0.08] text-white/90 text-xs sm:text-[12.5px] font-medium active:scale-[0.98] transition-all duration-200"
           >
-            <span>View My Work</span>
-            <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
+            <span>Projects</span>
           </a>
         </div>
       </div>
